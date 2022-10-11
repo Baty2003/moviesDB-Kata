@@ -1,0 +1,90 @@
+.list-movies__item{
+	display: flex;
+	background-color: aliceblue;
+	margin-bottom: 20px;
+	height: 279px;
+}
+
+.list-movies__img-container{
+	min-width: 183px;
+	min-height: 279px;
+	margin-right: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.list-movies__img-container img{
+	width: 183px;
+	height:279px;
+}
+
+.list-movies .list-movies__title{
+	font-weight: 400;
+	margin-top: 8px;
+	margin-right: 10px;
+	line-height: 28px;
+}
+
+.list-movies .list-movies__date{
+	font-size: 12px;
+	line-height: 22px;
+	display: block;
+}
+
+.list-movies__wait-data{
+	display: flex;
+	flex-direction: column;
+}
+
+.list-movies  .list-movies__genres{
+	display: block;
+}
+
+.list-movies__desctiption{
+	margin: 7px 20px 1px 0;
+	font-size: 12px;
+}
+
+.flex{
+	display: flex;
+	justify-content: space-between;
+}
+
+.list-movies__rate-number{
+	margin-right: 10px;
+	margin-top: 10px;
+	border: 2px solid transparent;
+	display: flex;
+	align-items: center;
+	border-radius: 50%;
+	min-width: 40px;
+	min-height: 40px;
+	max-width: 40px;
+	max-height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.list-movies__text-container{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.list-movies__rate-number span{
+	display: block;
+}
+
+.list-movies__rate-number--great{
+	border-color: green;
+}
+
+.list-movies__rate-number--middle{
+	border-color: rgb(231, 177, 0);
+}
+
+.list-movies__rate-number--fail{
+	border-color: red;
+}

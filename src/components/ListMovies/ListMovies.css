@@ -1,0 +1,17 @@
+.list-movies{
+	display: grid;
+	grid-template-columns: repeat(2, 454px);
+	grid-template-rows: 281px;
+	padding: 20px 32px;
+	gap: 0 36px;
+	align-items: center;
+}
+
+.list-movies__wait-data{
+	display: flex;
+	justify-content: center;
+}
+
+.list-movies__spin{
+	font-size: 30px;
+}
