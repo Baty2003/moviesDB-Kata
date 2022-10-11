@@ -10,6 +10,37 @@ export default class MovieDBApi {
         accept: 'application/json',
       },
     });
-    return await response.json();
+    const json = await response.json();
+    let { total_pages: totalPages } = json;
+
+    return [json.results.map(this._transformMovie), totalPages];
   }
+
+  async searchFilmsByNameAnotherPage(name, numberPage) {
+    const response = await fetch(
+      `${this._baseUrl}search/movie?api_key=${this._apiKey}&query=${name}&page=${numberPage}`,
+      {
+        method: 'get',
+        headers: {
+          accept: 'application/json',
+        },
+      },
+    );
+    const json = await response.json();
+    let { total_pages: totalPages } = json;
+
+    return [json.results.map(this._transformMovie), totalPages];
+  }
+
+  _transformMovie = (movie) => {
+    return {
+      id: movie.id,
+      title: movie.original_title,
+      description: movie.overview,
+      releaseDate: movie.release_date,
+      posterPath: movie.poster_path,
+      genreIds: movie.genre_ids,
+      rate: movie.vote_average,
+    };
+  };
 }

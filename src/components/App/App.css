@@ -3,6 +3,7 @@
 .container{
   background: burlywood;
   max-width: 1010px;
+  padding: 10px 36px;
   min-height: 100vh;
   margin: 0 auto;
 }

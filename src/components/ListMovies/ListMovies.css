@@ -1,10 +1,15 @@
 .list-movies{
 	display: grid;
 	grid-template-columns: repeat(2, 454px);
+	justify-content: center;
 	grid-template-rows: 281px;
-	padding: 20px 32px;
+	padding: 20px 0;
 	gap: 0 36px;
 	align-items: center;
+}
+
+.list-movies .ant-pagination{
+	text-align: center;
 }
 
 .list-movies__wait-data{
@@ -14,4 +19,9 @@
 
 .list-movies__spin{
 	font-size: 30px;
+}
+
+.prompt-text{
+	font-size: 30px;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }

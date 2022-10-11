@@ -3,7 +3,6 @@ import { Typography, Rate, Alert, Spin } from 'antd';
 import 'antd/dist/antd.css';
 import { format } from 'date-fns';
 import './MovieCard.css';
-import Paragraph from 'antd/lib/skeleton/Paragraph';
 
 const { Title, Text } = Typography;
 
@@ -16,7 +15,7 @@ String.prototype.trunc = function (countSymbol) {
 const colorBorderForRate = (rate) => {
   if (rate >= 7) {
     return { borderColor: 'green' };
-  } else if (rate >= 5 || rate <= 7) {
+  } else if (rate >= 5 && rate <= 7) {
     return { borderColor: 'rgb(231, 177, 0)' };
   } else {
     return { borderColor: 'red' };
@@ -32,7 +31,14 @@ export default class MovieCard extends Component {
   poster = (src, alt) => <img src={src} alt={alt} />;
 
   preLoadImg = () => {
-    let { poster_path: posterPath } = this.props;
+    let { posterPath } = this.props;
+    if (!posterPath) {
+      this.setState({ loadingImg: false });
+      this.poster = () => (
+        <Alert message="Not found image" description="The poster for the movie was not found" type="error" />
+      );
+      return;
+    }
     let img = new Image();
     img.src = `https://image.tmdb.org/t/p/original${posterPath}`;
     img.onload = () => {
@@ -49,14 +55,7 @@ export default class MovieCard extends Component {
   };
 
   render() {
-    let {
-      original_title: title,
-      overview: description,
-      release_date: releaseDate,
-      poster_path: posterPath,
-      genre_ids: genreIds,
-      vote_average: rate,
-    } = this.props;
+    let { title, description, releaseDate, posterPath, genreIds, rate } = this.props;
     return (
       <div className="list-movies__item">
         <div className="list-movies__img-container">
@@ -66,14 +65,14 @@ export default class MovieCard extends Component {
           <div>
             <div className="flex">
               <Title level={5} className="list-movies__title">
-                {title}
+                {title.trunc(40)}
               </Title>
               <div className="list-movies__rate-number" style={colorBorderForRate(rate)}>
                 <span>{rate.toFixed(1)}</span>
               </div>
             </div>
             <Text type="secondary" className="list-movies__date">
-              {format(new Date(releaseDate), 'PP')}
+              {releaseDate ? format(new Date(releaseDate), 'PP') : 'not date'}
             </Text>
             <span className="list-movies__genres">
               <Text code>Lol</Text>

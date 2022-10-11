@@ -9,5 +9,3 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
 
 const movieApi = new MovieApi();
-
-movieApi.searchFilmsByName('return').then((data) => console.log(data));
