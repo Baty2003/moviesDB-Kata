@@ -19,26 +19,22 @@ export default class MovieDBApi {
   }
 
   async rateFilm(filmId, rate, sessionId) {
-    try {
-      const reponse = await fetch(
-        `${this._baseUrl}movie/${filmId}/rating?api_key=${this._apiKey}&guest_session_id=${sessionId}`,
-        {
-          method: 'POST',
-          headers: {
-            accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            value: rate,
-          }),
+    const reponse = await fetch(
+      `${this._baseUrl}movie/${filmId}/rating?api_key=${this._apiKey}&guest_session_id=${sessionId}`,
+      {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      );
-      const json = await reponse.json();
-      if (json.status_code === 1 || json.status_code === 12) return true;
-      throw `Фильм не оценён, ошибка \n status_code: ${json.status_code} \n status_message: ${json.status_message}`;
-    } catch (err) {
-      return err;
-    }
+        body: JSON.stringify({
+          value: rate,
+        }),
+      },
+    );
+    const json = await reponse.json();
+    if (json.status_code === 1 || json.status_code === 12) return true;
+    throw `Фильм не оценён, ошибка \n status_code: ${json.status_code} \n status_message: ${json.status_message}`;
   }
 
   async getRatedMovies(sessionId) {
