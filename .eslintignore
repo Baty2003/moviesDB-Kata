@@ -1,3 +1,6 @@
+build
+.husky
+public
 node_modules
 /.vscode
 /.git

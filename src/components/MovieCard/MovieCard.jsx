@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
-import { GenresConsumer } from '../GenresContext';
+import { GenresConsumer } from '../../GenreСontext';
 import './MovieCard.css';
 
 const { Title, Text } = Typography;
@@ -54,7 +54,7 @@ export default class MovieCard extends Component {
     posterPath: PropTypes.string,
     genreIds: PropTypes.array,
     rate: PropTypes.number,
-    rateFilmApiFunction: PropTypes.func.isRequired,
+    rateFilmApiFunction: PropTypes.func,
     addRateFilmInLocalStorage: PropTypes.func,
   };
 
@@ -88,18 +88,23 @@ export default class MovieCard extends Component {
   };
 
   rateFilm = (valueRate) => {
-    this.props.rateFilmApiFunction(this.props.id, valueRate).then((data) => {
-      if (data === true) {
-        this.setState({
-          rate: valueRate,
-        });
-      } else {
-        this.setState({
-          error: data,
-        });
-      }
-      this.props.addRateFilmInLocalStorage(this.props.id, valueRate);
-    });
+    this.props
+      .sendRateForFilm(this.props.id, valueRate)
+      .then((data) => {
+        if (data === true) {
+          this.setState({
+            rate: valueRate,
+          });
+        } else {
+          this.setState({
+            error: data,
+          });
+        }
+        this.props.addRateFilmInLocalStorage(this.props.id, valueRate);
+      })
+      .catch((err) => {
+        this.setState({ error: err.message });
+      });
   };
 
   componentDidMount = () => {

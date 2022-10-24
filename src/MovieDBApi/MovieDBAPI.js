@@ -34,12 +34,13 @@ export default class MovieDBApi {
     );
     const json = await reponse.json();
     if (json.status_code === 1 || json.status_code === 12) return true;
-    throw `Фильм не оценён, ошибка \n status_code: ${json.status_code} \n status_message: ${json.status_message}`;
   }
 
-  async getRatedMovies(sessionId) {
+  async getRatedMovies(sessionId, page) {
     const reponse = await fetch(
-      `${this._baseUrl}guest_session/${sessionId}/rated/movies?api_key=${this._apiKey}&language=en-US&sort_by=created_at.asc`,
+      `${this._baseUrl}guest_session/${sessionId}/rated/movies?api_key=${
+        this._apiKey
+      }&language=en-US&sort_by=created_at.asc${page ? `&page=${page}` : ''}`,
       {
         method: 'get',
         headers: {
@@ -61,18 +62,6 @@ export default class MovieDBApi {
     });
     const json = await reponse.json();
     return json.genres;
-  }
-
-  async searchFilmsByName(name) {
-    const response = await fetch(`${this._baseUrl}search/movie?api_key=${this._apiKey}&query=${name}`, {
-      method: 'get',
-      headers: {
-        accept: 'application/json',
-      },
-    });
-    const json = await response.json();
-    let { total_pages: totalPages } = json;
-    return [json.results.map(this._transformMovie), totalPages];
   }
 
   async searchFilmsByNameAnotherPage(name, numberPage) {
