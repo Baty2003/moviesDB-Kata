@@ -31,11 +31,13 @@ export default class MovieCard extends Component {
   static defaultProps = {
     id: 0,
     title: 'Not props title',
+    rate: 0,
     rating: 0,
     posterPath: null,
     genreIds: [],
     description: 'Not props description',
     addRateFilmInLocalStorage: () => {},
+    sendRateForFilm: async () => true,
   };
 
   static propTypes = {
@@ -54,7 +56,7 @@ export default class MovieCard extends Component {
     posterPath: PropTypes.string,
     genreIds: PropTypes.array,
     rate: PropTypes.number,
-    rateFilmApiFunction: PropTypes.func,
+    sendRateForFilm: PropTypes.func,
     addRateFilmInLocalStorage: PropTypes.func,
   };
 

@@ -9,10 +9,16 @@ import MovieCard from '../MovieCard';
 export default class ListMovies extends Component {
   static defaultProps = {
     movies: [],
+    loading: false,
+    searchRatedFilmsInLocalStorage: () => 0,
+    getRatedFilmExpression: () => 0,
   };
 
   static propTypes = {
     movies: PropTypes.array,
+    loading: PropTypes.bool,
+    searchRatedFilmsInLocalStorage: PropTypes.func,
+    getRatedFilmExpression: PropTypes.func,
   };
 
   state = {
