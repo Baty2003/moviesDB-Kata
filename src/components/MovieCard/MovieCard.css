@@ -1,6 +1,10 @@
 .list-movies__item{
-	display: flex;
-	background-color: aliceblue;
+	display: grid;
+	gap: 0 20px;
+	grid-template-columns: 183px 2fr;
+	grid-template-rows: 132px 1fr;
+	background-color: #ffffff;
+	box-shadow:1px 1px 10px rgba(0, 0, 0, 0.329);
 	margin-bottom: 20px;
 	height: 279px;
 }
@@ -12,6 +16,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	grid-column: 1;
+	grid-row: span 2;
 }
 
 .list-movies__img-container img{
@@ -24,6 +30,7 @@
 	margin-top: 8px;
 	margin-right: 10px;
 	line-height: 28px;
+	height: 50px;
 }
 
 .list-movies .list-movies__date{
@@ -38,7 +45,7 @@
 }
 
 .list-movies  .list-movies__genres{
-	display: block;
+	display: inline-block;
 }
 
 .list-movies__desctiption{
@@ -52,25 +59,34 @@
 }
 
 .list-movies__rate-number{
+	font-size: 12px;
 	margin-right: 10px;
 	margin-top: 10px;
 	border: 2px solid transparent;
 	display: flex;
 	align-items: center;
-	border-radius: 50%;
-	min-width: 40px;
-	min-height: 40px;
-	max-width: 40px;
-	max-height: 40px;
-	display: flex;
 	justify-content: center;
-	align-items: center;
+	border-radius: 50%;
+	min-width: 35px;
+	min-height: 35px;
+	max-width: 35px;
+	max-height: 35px;
 }
 
 .list-movies__text-container{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	grid-column: 2/3;
+}
+
+.list-movies__description-container{
+	display: flex;
+	flex-direction: column;
+
+	justify-content: space-between;
+	grid-column: 2/3;
+	grid-row: 2;
 }
 
 .list-movies__rate-number span{
@@ -87,4 +103,69 @@
 
 .list-movies__rate-number--fail{
 	border-color: red;
+}
+
+.ant-rate.list-movies__rate{
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+@media (max-width:1000px) {
+	.list-movies{
+		grid-template-columns: repeat(2, 390px);
+		justify-content: center;
+	}
+
+	.ant-alert-with-description.ant-alert-no-icon{
+		padding: 0 8px;
+	}
+
+	.ant-rate.list-movies__rate{
+		margin-bottom: 10px;
+		padding-right: 10px;
+		text-align: right;
+	}
+
+	.list-movies__item{
+		width: 390px;
+		height: 250px;
+		grid-template-columns: 60px 1fr;
+		grid-template-rows: 130px 1fr;
+		padding: 6px 6px 10px 10px;
+		justify-content: center;
+	}
+
+	.list-movies__img-container img{
+		height: 100px;
+		width: 60px;
+	}
+
+	.list-movies__img-container{
+		min-height: auto;
+		min-width: auto;
+		height: 110px;
+		width: 60px;
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+	.list-movies__text-container{
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	.list-movies__description-container{
+		grid-column: span 2;
+		grid-row: 2;
+	}
+}
+
+@media (max-width: 850px) {
+	.list-movies{
+		width: 390px;
+		display: flex;
+		flex-direction:column;
+		justify-content: center;
+		margin: 0 auto;
+	}
 }

@@ -1,13 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 .container{
-  background: burlywood;
   max-width: 1010px;
-  padding: 10px 36px;
+  padding: 10px 34px;
   min-height: 100vh;
   margin: 0 auto;
 }
 
+@media (max-width: 850px) {
+  .container{
+    padding: 10px;
+  }
+}
+
 body {
   font-family: "Inter", sans-serif;
+}
+
+.container-tabs{
+  text-align: center;
+}
+
+
+.container-tabs .ant-tabs{
+  display: inline-block;
+}
+
+.container-tabs .ant-tabs-tab{
+  justify-content: center;
+  min-width: 55px;
+}
+
+.container-tabs .ant-tabs-tab + .ant-tabs-tab {
+  margin: 0 0 0 20px;
 }
