@@ -49,35 +49,6 @@ export default class ListMovies extends Component {
       });
   }
 
-  searchInRatedFilms(filmId) {
-    const { ratedFilms } = this.state;
-    const foundFilm = ratedFilms.find((film) => film.id === filmId);
-    if (!foundFilm) return 0;
-    return foundFilm.rate;
-  }
-
-  addRateFilmInLocalStorage(filmId, valueRate) {
-    const newRatedFilm = { id: filmId, rate: valueRate };
-    let localStorageFilmsRated = localStorage.getItem('ratedFilms');
-
-    if (!localStorageFilmsRated) {
-      localStorage.setItem('ratedFilms', JSON.stringify([newRatedFilm]));
-      return;
-    }
-    localStorageFilmsRated = JSON.parse(localStorageFilmsRated);
-    let existsFilm = localStorageFilmsRated.find((film) => film.id === filmId);
-
-    if (existsFilm) {
-      let idExistFilm = localStorageFilmsRated.map((film) => film.id).indexOf(filmId);
-      localStorageFilmsRated[idExistFilm].rate = valueRate;
-    } else {
-      localStorageFilmsRated.push(newRatedFilm);
-    }
-
-    localStorage.setItem('ratedFilms', JSON.stringify(localStorageFilmsRated));
-    return;
-  }
-
   async getRatedMovies() {
     this.MovieApi.getRatedMovies(this.props.sessionId)
       .then((results) => {
@@ -107,6 +78,35 @@ export default class ListMovies extends Component {
         this.setState({ loading: false, error: true });
       });
   };
+
+  searchInRatedFilms(filmId) {
+    const { ratedFilms } = this.state;
+    const foundFilm = ratedFilms.find((film) => film.id === filmId);
+    if (!foundFilm) return 0;
+    return foundFilm.rate;
+  }
+
+  addRateFilmInLocalStorage(filmId, valueRate) {
+    const newRatedFilm = { id: filmId, rate: valueRate };
+    let localStorageFilmsRated = localStorage.getItem('ratedFilms');
+
+    if (!localStorageFilmsRated) {
+      localStorage.setItem('ratedFilms', JSON.stringify([newRatedFilm]));
+      return;
+    }
+    localStorageFilmsRated = JSON.parse(localStorageFilmsRated);
+    let existsFilm = localStorageFilmsRated.find((film) => film.id === filmId);
+
+    if (existsFilm) {
+      let idExistFilm = localStorageFilmsRated.map((film) => film.id).indexOf(filmId);
+      localStorageFilmsRated[idExistFilm].rate = valueRate;
+    } else {
+      localStorageFilmsRated.push(newRatedFilm);
+    }
+
+    localStorage.setItem('ratedFilms', JSON.stringify(localStorageFilmsRated));
+    return;
+  }
 
   componentDidUpdate({ searchRequest, mode }) {
     let { searchRequest: searchRequestProps, mode: modeProps } = this.props;
