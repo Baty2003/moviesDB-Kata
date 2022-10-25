@@ -93,7 +93,7 @@ export default class TodoApp extends Component {
       });
   };
 
-  searchRatedFilmsInLocalStorage(filmId, arrFilms) {
+  searchRatedFilmsInList(filmId, arrFilms) {
     const foundFilm = arrFilms.find((film) => film.id === filmId);
     if (!foundFilm) return 0;
     return foundFilm.rate;
@@ -121,7 +121,7 @@ export default class TodoApp extends Component {
     return;
   }
 
-  getRatedFilmExpression = () =>
+  getRatedFilmExpressionInLocalStorage = () =>
     localStorage.getItem('ratedFilms') ? JSON.parse(localStorage.getItem('ratedFilms')) : [];
 
   componentDidMount = () => {
@@ -180,9 +180,9 @@ export default class TodoApp extends Component {
           movies={data}
           loading={loadingData}
           addRateFilmInLocalStorage={this.addRateFilmInLocalStorage}
-          searchRatedFilmsInLocalStorage={this.searchRatedFilmsInLocalStorage}
-          getRatedFilmExpression={this.getRatedFilmExpression}
-          sendRateForFilm={(filmId, rate) => this.MovieApi.rateFilm(filmId, rate, sessionId)}
+          searchRatedFilmsInList={this.searchRatedFilmsInList}
+          listRatedFilms={this.getRatedFilmExpressionInLocalStorage()}
+          sendRateForFilmApi={(filmId, rate) => this.MovieApi.rateFilm(filmId, rate, sessionId)}
         />
       </GenresProvider>
     );

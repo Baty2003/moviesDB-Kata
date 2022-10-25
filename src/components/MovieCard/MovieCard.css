@@ -181,7 +181,25 @@
 
 	.list-movies__item{
 		width: 300px;
-		height: 280px;
-		grid-template-rows: 140px 1fr;
+		height: 320px;
+		grid-template-rows: minmax(100px, 180px) 1fr;
+	}
+
+	.list-movies .list-movies__title{
+		height: 70px;
+	}
+
+	.list-movies__img-container img{
+		height: 120px;
+		width: 70px;
+	}
+
+	.list-movies__img-container{
+		min-height: auto;
+		min-width: auto;
+		height: 110px;
+		width: 60px;
+		grid-column: 1;
+		grid-row: 1;
 	}
 }

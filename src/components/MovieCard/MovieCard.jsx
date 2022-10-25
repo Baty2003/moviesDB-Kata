@@ -91,7 +91,7 @@ export default class MovieCard extends Component {
 
   rateFilm = (valueRate) => {
     this.props
-      .sendRateForFilm(this.props.id, valueRate)
+      .sendRateForFilmApi(this.props.id, valueRate)
       .then((data) => {
         if (data === true) {
           this.setState({

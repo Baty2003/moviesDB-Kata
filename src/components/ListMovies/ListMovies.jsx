@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin } from 'antd';
+import { Alert, Spin } from 'antd';
 import PropTypes from 'prop-types';
 
 import 'antd/dist/antd.css';
@@ -11,18 +11,19 @@ export default class ListMovies extends Component {
     movies: [],
     loading: false,
     searchRatedFilmsInLocalStorage: () => 0,
-    getRatedFilmExpression: () => 0,
+    listRatedFilms: [],
   };
 
   static propTypes = {
     movies: PropTypes.array,
     loading: PropTypes.bool,
-    searchRatedFilmsInLocalStorage: PropTypes.func,
-    getRatedFilmExpression: PropTypes.func,
+    searchRatedFilmsInList: PropTypes.func,
+    listRatedFilms: PropTypes.array,
   };
 
   state = {
-    ratedFilms: this.props.getRatedFilmExpression(),
+    ratedFilms: this.props.listRatedFilms,
+    error: false,
   };
 
   componentDidCatch() {
@@ -32,16 +33,20 @@ export default class ListMovies extends Component {
   }
 
   render() {
-    let { loading, movies, searchRatedFilmsInLocalStorage, sendRateForFilm, addRateFilmInLocalStorage } = this.props;
+    const { loading, movies, searchRatedFilmsInList, sendRateForFilmApi, addRateFilmInLocalStorage } = this.props;
+    const { error, ratedFilms } = this.state;
+    if (error) {
+      return <Alert message="Error" description={'The list cannot be loaded. ${}'} type="error" showIcon />;
+    }
     if (!loading) {
       let elements = movies.map((movie) => {
         return (
           <MovieCard
             key={movie.id}
-            rating={searchRatedFilmsInLocalStorage(movie.id, this.state.ratedFilms)}
+            rating={searchRatedFilmsInList(movie.id, ratedFilms)}
             {...movie}
             addRateFilmInLocalStorage={addRateFilmInLocalStorage}
-            sendRateForFilm={sendRateForFilm}
+            sendRateForFilmApi={sendRateForFilmApi}
           />
         );
       });
@@ -56,27 +61,3 @@ export default class ListMovies extends Component {
     );
   }
 }
-
-// let alert = error ? (
-//   <Alert
-//     message="Loading Error"
-//     description="An unexpected error has occurred, we are already correcting it!"
-//     type="error"
-//   />
-// ) : null;
-
-// let promptForInput =
-//   movies.length === 0 && !loading && !error ? (
-//     <p className="prompt-text">{searchRequest ? 'Films not found' : 'Enter the name of the movie to search for'}</p>
-//   ) : null;
-
-// let promptForRated =
-//   movies.length === 0 && !loading && !error ? <p className="prompt-text">There are no rated films</p> : null;
-
-// return (
-//   <div className="list-movies list-movies__wait-data">
-//     {loader}
-//     {alert}
-//     {mode === 'search' ? promptForInput : promptForRated}
-//   </div>
-// );
